@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.panelMain = new System.Windows.Forms.Panel();
+            this.labelForClues = new System.Windows.Forms.Label();
+            this.buttonRemoveAll = new System.Windows.Forms.Button();
             this.textBoxInput = new System.Windows.Forms.TextBox();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
             this.buttonToAnswer = new System.Windows.Forms.Button();
@@ -49,6 +51,7 @@
             this.играToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.начатьЗановоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.руководствоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain.SuspendLayout();
             this.toolStripLevels.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -58,6 +61,8 @@
             // 
             this.panelMain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelMain.BackgroundImage")));
             this.panelMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelMain.Controls.Add(this.labelForClues);
+            this.panelMain.Controls.Add(this.buttonRemoveAll);
             this.panelMain.Controls.Add(this.textBoxInput);
             this.panelMain.Controls.Add(this.textBoxOutput);
             this.panelMain.Controls.Add(this.buttonToAnswer);
@@ -66,6 +71,29 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(834, 448);
             this.panelMain.TabIndex = 5;
+            // 
+            // labelForClues
+            // 
+            this.labelForClues.BackColor = System.Drawing.Color.Transparent;
+            this.labelForClues.ForeColor = System.Drawing.Color.Transparent;
+            this.labelForClues.Location = new System.Drawing.Point(731, 339);
+            this.labelForClues.Name = "labelForClues";
+            this.labelForClues.Size = new System.Drawing.Size(100, 100);
+            this.labelForClues.TabIndex = 9;
+            this.labelForClues.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.labelForClues_MouseDoubleClick);
+            // 
+            // buttonRemoveAll
+            // 
+            this.buttonRemoveAll.BackColor = System.Drawing.Color.Gray;
+            this.buttonRemoveAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonRemoveAll.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonRemoveAll.Location = new System.Drawing.Point(330, 347);
+            this.buttonRemoveAll.Name = "buttonRemoveAll";
+            this.buttonRemoveAll.Size = new System.Drawing.Size(150, 57);
+            this.buttonRemoveAll.TabIndex = 8;
+            this.buttonRemoveAll.Text = "Очистить все";
+            this.buttonRemoveAll.UseVisualStyleBackColor = false;
+            this.buttonRemoveAll.Click += new System.EventHandler(this.buttonRemoveAll_Click);
             // 
             // textBoxInput
             // 
@@ -93,8 +121,8 @@
             this.buttonToAnswer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonToAnswer.BackgroundImage")));
             this.buttonToAnswer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonToAnswer.CausesValidation = false;
-            this.buttonToAnswer.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonToAnswer.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonToAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonToAnswer.ForeColor = System.Drawing.Color.DarkOrange;
             this.buttonToAnswer.Location = new System.Drawing.Point(330, 150);
             this.buttonToAnswer.Name = "buttonToAnswer";
             this.buttonToAnswer.Size = new System.Drawing.Size(150, 190);
@@ -246,6 +274,7 @@
             this.toolStripButtonForAnswer.Name = "toolStripButtonForAnswer";
             this.toolStripButtonForAnswer.Size = new System.Drawing.Size(50, 50);
             this.toolStripButtonForAnswer.Text = "!";
+            this.toolStripButtonForAnswer.ToolTipText = "Ответить";
             this.toolStripButtonForAnswer.Click += new System.EventHandler(this.toolStripButtonForAnswer_Click);
             // 
             // toolStripLevels
@@ -275,7 +304,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.играToolStripMenuItem,
-            this.выходToolStripMenuItem});
+            this.выходToolStripMenuItem,
+            this.руководствоToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(834, 24);
@@ -293,7 +323,7 @@
             // начатьЗановоToolStripMenuItem
             // 
             this.начатьЗановоToolStripMenuItem.Name = "начатьЗановоToolStripMenuItem";
-            this.начатьЗановоToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.начатьЗановоToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.начатьЗановоToolStripMenuItem.Text = "Начать заново";
             this.начатьЗановоToolStripMenuItem.Click += new System.EventHandler(this.начатьЗановоToolStripMenuItem_Click);
             // 
@@ -303,6 +333,13 @@
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            // 
+            // руководствоToolStripMenuItem
+            // 
+            this.руководствоToolStripMenuItem.Name = "руководствоToolStripMenuItem";
+            this.руководствоToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.руководствоToolStripMenuItem.Text = "Руководство";
+            this.руководствоToolStripMenuItem.Click += new System.EventHandler(this.руководствоToolStripMenuItem_Click);
             // 
             // mainForm
             // 
@@ -349,6 +386,9 @@
         private System.Windows.Forms.ToolStripMenuItem играToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem начатьЗановоToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.Button buttonRemoveAll;
+        private System.Windows.Forms.Label labelForClues;
+        private System.Windows.Forms.ToolStripMenuItem руководствоToolStripMenuItem;
     }
 }
 

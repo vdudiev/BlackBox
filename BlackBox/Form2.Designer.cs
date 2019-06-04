@@ -35,6 +35,7 @@
             this.buttonForAnswer = new System.Windows.Forms.Button();
             this.textBoxForAnswers = new System.Windows.Forms.TextBox();
             this.textBoxForExamples = new System.Windows.Forms.TextBox();
+            this.buttonAnotherNumbers = new System.Windows.Forms.Button();
             this.panelForAnswer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,6 +43,7 @@
             // 
             this.panelForAnswer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelForAnswer.BackgroundImage")));
             this.panelForAnswer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelForAnswer.Controls.Add(this.buttonAnotherNumbers);
             this.panelForAnswer.Controls.Add(this.label2);
             this.panelForAnswer.Controls.Add(this.label1);
             this.panelForAnswer.Controls.Add(this.buttonForAnswer);
@@ -85,7 +87,8 @@
             this.buttonForAnswer.Name = "buttonForAnswer";
             this.buttonForAnswer.Size = new System.Drawing.Size(186, 109);
             this.buttonForAnswer.TabIndex = 2;
-            this.buttonForAnswer.Text = "Введите результат работы черного ящика  для цифрм с первой колонки во вторую";
+            this.buttonForAnswer.Text = "Введите результат работы черного ящика  для цифр с первой колонки во вторую и наж" +
+    "мите на меня.";
             this.buttonForAnswer.UseVisualStyleBackColor = true;
             this.buttonForAnswer.Click += new System.EventHandler(this.buttonForAnswer_Click);
             // 
@@ -107,6 +110,18 @@
             this.textBoxForExamples.ReadOnly = true;
             this.textBoxForExamples.Size = new System.Drawing.Size(90, 240);
             this.textBoxForExamples.TabIndex = 0;
+            // 
+            // buttonAnotherNumbers
+            // 
+            this.buttonAnotherNumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.buttonAnotherNumbers.ForeColor = System.Drawing.Color.Navy;
+            this.buttonAnotherNumbers.Location = new System.Drawing.Point(192, 230);
+            this.buttonAnotherNumbers.Name = "buttonAnotherNumbers";
+            this.buttonAnotherNumbers.Size = new System.Drawing.Size(186, 69);
+            this.buttonAnotherNumbers.TabIndex = 5;
+            this.buttonAnotherNumbers.Text = "Другие числа";
+            this.buttonAnotherNumbers.UseVisualStyleBackColor = true;
+            this.buttonAnotherNumbers.Click += new System.EventHandler(this.buttonAnotherNumbers_Click);
             // 
             // FormForAnswer
             // 
@@ -132,5 +147,6 @@
         private System.Windows.Forms.Button buttonForAnswer;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonAnotherNumbers;
     }
 }

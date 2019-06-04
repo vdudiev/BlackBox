@@ -8,9 +8,6 @@
     using System.Threading.Tasks;
     using System.Windows.Forms;
 
-//Внимание!!!! Проест очень очень сырой большинсто исключений не обработоно. Не старайтесь сломать программу, я вам говрю:у вас это получится!!!
-//Внимание!!!! Проест очень очень сырой большинсто исключений не обработоно. Не старайтесь сломать программу, я вам говрю:у вас это получится!!!
-//Внимание!!!! Проест очень очень сырой большинсто исключений не обработоно. Не старайтесь сломать программу, я вам говрю:у вас это получится!!!
 namespace BlackBox
 {
     public partial class FormForAnswer : Form
@@ -20,11 +17,13 @@ namespace BlackBox
         double[] examples = new double[5];
         double[] answers = new double[5];
         public  double SelectedLevel2;
-        public FormForAnswer()           
+
+        void locationChange()
         {
-            InitializeComponent();
             buttonForAnswer.Left = panelForAnswer.Width / 2 - buttonForAnswer.Width / 2;
             buttonForAnswer.Top = panelForAnswer.Height / 2 - buttonForAnswer.Height / 2;
+            buttonAnotherNumbers.Left = panelForAnswer.Width / 2 - buttonAnotherNumbers.Width / 2;
+            buttonAnotherNumbers.Top = buttonForAnswer.Top + buttonForAnswer.Height + 2;
             textBoxForExamples.Left = buttonForAnswer.Left - textBoxForExamples.Width - 20;
             textBoxForAnswers.Left = buttonForAnswer.Left + buttonForAnswer.Width + 20;
             textBoxForExamples.Top = buttonForAnswer.Top - textBoxForExamples.Height / 2 + buttonForAnswer.Height / 2;
@@ -33,62 +32,72 @@ namespace BlackBox
             label1.Top = textBoxForExamples.Top - label1.Height;
             label2.Left = textBoxForAnswers.Left;
             label2.Top = textBoxForAnswers.Top - label2.Height;
+        }
+        public FormForAnswer()           
+        {
+            InitializeComponent();
+            locationChange();
 
         }
-
-
         private void FormForAnswer_Load(object sender, EventArgs e)
-        {            
+        {
+            completionIfTexBoxExample();
+        }
+
+        
+        private void FormForAnswer_SizeChanged(object sender, EventArgs e)
+        {
+            locationChange();
+        }
+        void completionIfTexBoxExample()
+        {
             textBoxForAnswers.Text = null;
             textBoxForExamples.Text = null;
             double example;
             bool samecheck = true;
             for (int i = 0; i < examples.Length; i++)
             {
-                example = Ran.Next(1,25);
+                example = Ran.Next(1, 25);
                 //если рандомное число совпадет с уже имеющимися, то пропускаем его               
                 {
                     for (int j = 0; j <= i; j++)
-                    if ( example == examples[j])
-                    {
-                        i--;
-                        samecheck = false;
-                        break;
-                    }
+                        if (example == examples[j])
+                        {
+                            i--;
+                            samecheck = false;
+                            break;
+                        }
                 }
                 if (samecheck)
                 {
-                    examples[i] = example;                  
-                    textBoxForExamples.Text += (examples[i] + "\r\n"); 
+                    examples[i] = example;
+                    textBoxForExamples.Text += (examples[i] + "\r\n");
                 }
                 samecheck = true;
-                
-            }
-        }
 
-        
-        private void FormForAnswer_SizeChanged(object sender, EventArgs e)
-        {
-            buttonForAnswer.Left = panelForAnswer.Width / 2 - buttonForAnswer.Width / 2;
-            buttonForAnswer.Top = panelForAnswer.Height / 2 - buttonForAnswer.Height / 2;
-            textBoxForExamples.Left = buttonForAnswer.Left - textBoxForExamples.Width - 20;
-            textBoxForAnswers.Left = buttonForAnswer.Left + buttonForAnswer.Width + 20;
-            textBoxForExamples.Top = buttonForAnswer.Top - textBoxForExamples.Height / 2 + buttonForAnswer.Height / 2;
-            textBoxForAnswers.Top = buttonForAnswer.Top - textBoxForAnswers.Height / 2 + buttonForAnswer.Height / 2;
-            label1.Left = textBoxForExamples.Left;
-            label1.Top = textBoxForExamples.Top - label1.Height;
-            label2.Left = textBoxForAnswers.Left;
-            label2.Top = textBoxForAnswers.Top - label2.Height;
+            }
         }
 
         private void buttonForAnswer_Click(object sender, EventArgs e)
         {
             mainForm mainF = new mainForm();                    
             string[] stringAnswers = textBoxForAnswers.Text.Split('\n');
-            for (int i = 0; i < answers.Length; i++)
+            try
             {
-                answers[i] = Convert.ToDouble(stringAnswers[i]);
+                for (int i = 0; i < answers.Length; i++)
+                {
+                    answers[i] = Convert.ToDouble(stringAnswers[i]);
+                }
             }
+            catch(FormatException)
+            {
+                MessageBox.Show("Вводите только цифры, без пустых строк между ними и для выделение целой части используйте запятую.");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show(" дайте ответ на все числа, представленные в первой колонке.");
+            }
+
 
             for (int i = 0; i < examples.Length; i++)
             {
@@ -104,18 +113,16 @@ namespace BlackBox
             {
                 buttonForAnswer.BackColor = Color.GreenYellow;
                 MessageBox.Show("Праильно :)");
-                this.Close();
-               
+                this.Close();               
             }
             else
             {
                 buttonForAnswer.BackColor = Color.Red;
-                MessageBox.Show("НеПравильно :(");
+                MessageBox.Show("Не правильно :(");
                 textBoxForAnswers.Text = null;
                 answerTruthCheck = true;
             }
-            
-            
+          
         }
 
         private double OutputLvl(double input)
@@ -174,6 +181,12 @@ namespace BlackBox
 
             }
             return 0;
+        }
+
+        private void buttonAnotherNumbers_Click(object sender, EventArgs e)
+        {
+            textBoxForExamples.Text = null;
+
         }
     }
 }

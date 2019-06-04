@@ -11,8 +11,6 @@ using System.Windows.Forms;
 namespace BlackBox
 {
     //Внимание!!!! Проест очень очень сырой большинсто исключений не обработоно. Не старайтесь сломать программу, я вам говрю:у вас это получится!!!
-    //Внимание!!!! Проест очень очень сырой большинсто исключений не обработоно. Не старайтесь сломать программу, я вам говрю:у вас это получится!!!
-    //Внимание!!!! Проест очень очень сырой большинсто исключений не обработоно. Не старайтесь сломать программу, я вам говрю:у вас это получится!!!
     public partial class mainForm : Form
     {
         //лист входных данных
@@ -20,76 +18,89 @@ namespace BlackBox
          static int SelectedLevel = 1;
          public bool answerTruthCheck = false;
 
-
-
-        public mainForm()           
+        void locationChange()
         {
-            InitializeComponent();
-            buttonToAnswer.Left = panelMain.Width / 2 - buttonToAnswer.Width/2;
-            buttonToAnswer.Top = panelMain.Height / 2-buttonToAnswer.Height/2;
+            buttonToAnswer.Left = panelMain.Width / 2 - buttonToAnswer.Width / 2;
+            buttonToAnswer.Top = panelMain.Height / 2 - buttonToAnswer.Height / 2;
+            buttonRemoveAll.Left = panelMain.Width / 2 - buttonRemoveAll.Width / 2;
+            buttonRemoveAll.Top = panelMain.Height / 2 - buttonToAnswer.Height / 2 + 5 + buttonToAnswer.Height;
             textBoxInput.Left = buttonToAnswer.Left - textBoxInput.Width - 20;
             textBoxOutput.Left = buttonToAnswer.Left + buttonToAnswer.Width + 20;
             textBoxInput.Top = buttonToAnswer.Top;
             textBoxOutput.Top = buttonToAnswer.Top;
-           
-           
+            labelForClues.Left =panelMain.Width - labelForClues.Width;
+            labelForClues.Top = panelMain.Height - labelForClues.Height;
+        }
+
+        public mainForm()           
+        {
+            InitializeComponent();
+            locationChange();
         }
         
         private double OutputLvl(string input)
         {
-            //для каждого уровня своё возвращаемое число
-            switch (SelectedLevel)
+            
+            try
             {
-                case 1:
-                    {
-                        return Convert.ToDouble(input) + 1;
-                    }                    
+                //для каждого уровня своё возвращаемое число
+                switch (SelectedLevel)
+                {
+                    case 1:
+                        {
+                            return Convert.ToDouble(input) + 1;
+                        }
 
-                case 2:
-                    {
-                         return Convert.ToDouble(input) + 5;
-                    }                   
+                    case 2:
+                        {
+                            return Convert.ToDouble(input) + 5;
+                        }
 
-                case 3:
-                    {
-                        return Convert.ToDouble(input) + 15;
-                    }                   
+                    case 3:
+                        {
+                            return Convert.ToDouble(input) + 15;
+                        }
 
-                case 4:
-                    {
-                        return Convert.ToDouble(input) *2; 
-                    }
+                    case 4:
+                        {
+                            return Convert.ToDouble(input) * 2;
+                        }
 
-                case 5:
-                    {
-                        return Convert.ToDouble(input) * 3;
-                    }                 
+                    case 5:
+                        {
+                            return Convert.ToDouble(input) * 3;
+                        }
 
-                case 6:
-                    {
-                        return Convert.ToDouble(input) * 2 + 1;
-                    }
+                    case 6:
+                        {
+                            return Convert.ToDouble(input) * 2 + 1;
+                        }
 
-                case 7:
-                    {
-                        return Convert.ToDouble(input) * 2 - 2;
-                    }
+                    case 7:
+                        {
+                            return Convert.ToDouble(input) * 2 - 2;
+                        }
 
-                case 8:
-                    {
-                        return Convert.ToDouble(input) / 2;
-                    }
+                    case 8:
+                        {
+                            return Convert.ToDouble(input) / 2;
+                        }
 
-                case 9:
-                    {
-                        return Convert.ToDouble(input) / 2 + 1;
-                    }
-                case 10:
-                    {
-                        return Math.Pow(Convert.ToDouble(input), 2);
-                    }
-                    
-            }               
+                    case 9:
+                        {
+                            return Convert.ToDouble(input) / 2 + 1;
+                        }
+                    case 10:
+                        {
+                            return Math.Pow(Convert.ToDouble(input), 2);
+                        }
+
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Вводите только цифры и без пустых строк между ними!");
+            }
             return 0;
         }
 
@@ -298,12 +309,7 @@ namespace BlackBox
         //изменение позиции элементов при изменении размеров формы
         private void mainForm_SizeChanged(object sender, EventArgs e)
         {
-            buttonToAnswer.Left = panelMain.Width / 2 - buttonToAnswer.Width / 2;
-            buttonToAnswer.Top = panelMain.Height / 2 - buttonToAnswer.Height / 2;
-            textBoxInput.Left = buttonToAnswer.Left - textBoxInput.Width - 20;
-            textBoxOutput.Left = buttonToAnswer.Left + buttonToAnswer.Width + 20;
-            textBoxInput.Top = buttonToAnswer.Top;
-            textBoxOutput.Top = buttonToAnswer.Top;
+            locationChange();
         }
 
         private void начатьЗановоToolStripMenuItem_Click(object sender, EventArgs e)
@@ -318,6 +324,44 @@ namespace BlackBox
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonRemoveAll_Click(object sender, EventArgs e)
+        {
+            textBoxInput.Text = null;
+            textBoxOutput.Text = null;
+        }
+        //Подсказка для учителя
+        private void labelForClues_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("Подсказка для учителя :) \r\n 1 уровень: а+1 \r\n 2 уровень: а+5 \r\n 3 уровeнь: а+15 " +
+            "\r\n 4 уровень: а*2 \r\n 5 уровень: а*3 \r\n 6 уровень: а*2+1 \r\n 7 уровeнь: а*2-2\r\n 8 уровeнь: а/2" +
+            "\r\n 9 уровeнь: а/2+1 \r\n 10 уровeнь: а в степени 2.");
+        }
+        //Руководство к игре
+        private void руководствоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Как играть в BlackBox:\r\n" +
+                "1. Введите несколько чисел в левую белую колонку\r\n" +
+                "(Не больше 4)начиная каждое число с новой строки\r\n" +
+                "2. Нажмите на кнопку \"Считать\". Каждому числу с\r\n" +
+                " левой коланки в правую будет записанно число,\r\n" +
+                " результат работы алгоритма\r\n" +
+                "3. Если вы догадались, какой алгоритм используется\r\n" +
+                " для обработки числа, то нажмите на кнопку с\r\n" +
+                " восклицательным Знаком\r\n" +
+                "4. Перед вами появится окно для Ответа. В столбце \r\n" +
+                "номер 1 записанно несколько чисел\r\n" +
+                "5. Для того ,чтобы дать ответ , вам необходимо\r\n" +
+                " обработать числа с столбцы 1 по алгоритму который\r\n" +
+                " вы считаете верным и записать ответ в столбец 2,\r\n" +
+                " каждый ответ должен находиться на против числа,для\r\n" +
+                " ответа нажмите на кнопку между столбцами" +
+                "6. Если ваш ответ верный, вам станет доступен\r\n" +
+                " следующий уровень с другим, более сложным алгоритмом,\r\n" +
+                " и так до тех пор, пока вы не пройдёте все уровни\r\n" +
+                "*Для того, чтобы начать игру сначало, в верхнем меню\r\n" +
+                " выберите пункт игра->Начать заново");
         }
     }
 }
